@@ -1,10 +1,18 @@
 FROM alpine as git
 
+ARG VERSION=latest
+
 RUN apk add --no-cache git
 
 WORKDIR /
 
 RUN git clone https://github.com/novnc/websockify
+
+WORKDIR /websockify
+
+RUN if ! [ "$VERSION" = latest ]; then \
+        git checkout "tags/v$VERSION"; \
+    fi
 
 
 FROM alpine
