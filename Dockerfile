@@ -11,7 +11,7 @@ FROM alpine
 
 RUN apk add --no-cache py3-numpy py3-requests
 
-RUN env PYPATH=$(which python3) ln -s "$PYPATH" $(dirname "$PYPATH")/python
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 COPY --from=git /websockify/run /opt/websockify/
 COPY --from=git /websockify/websockify/ /opt/websockify/websockify/
