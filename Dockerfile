@@ -9,7 +9,9 @@ RUN git clone https://github.com/novnc/websockify
 
 FROM alpine
 
-RUN apk add --no-cache python py-numpy py-requests
+RUN apk add --no-cache py3-numpy py3-requests
+
+RUN env PYPATH=$(which python3) ln -s "$PYPATH" $(dirname "$PYPATH")/python
 
 COPY --from=git /websockify/run /opt/websockify/
 COPY --from=git /websockify/websockify/ /opt/websockify/websockify/
